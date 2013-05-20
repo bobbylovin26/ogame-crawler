@@ -135,20 +135,11 @@ class OgameCrawler
 
     raw_distance_array = record.query(select_sql).map.with_index do |row, index|
       coord = row['ORIGIN'].delete('[]').split(':').map { |token| token.to_i}
-      distance = (coord[1] - 140).abs
-      if distance <= 40 then
-        [row['NAME'], distance]
-      end
-    end
-
-    raw_distance_array.delete(nil)
-
-    raw_distance_array.sort! do |a,b|
-      (a[1] <=> b[1]) * -1
+      row['NAME']
     end
 
     distance_array = raw_distance_array.map do |row|
-      user row[0]
+      user row
     end
   end
 
