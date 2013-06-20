@@ -20,7 +20,7 @@ class OgameCrawler
     @clnt     = HTTPClient.new
   end
 
-  def ranks(pages_count = 11)
+  def ranks(pages_count = 9)
     self.login
 
     record = Record.new
@@ -28,7 +28,7 @@ class OgameCrawler
     if pages_count != nil then
       pages_count = "#{pages_count}".to_i
     else
-      pages_count = 11
+      pages_count = 9
     end
 
     # load history ranks data
