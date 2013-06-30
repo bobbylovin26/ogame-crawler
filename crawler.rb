@@ -96,11 +96,17 @@ class OgameCrawler
     galaxy, start_system = start.delete('[]').split(':')
 
     (start_system.to_i..499).each do |system|
-      puts "[#{galaxy}:#{system}]"
+      print "[#{galaxy}:#{system}]"
       result = []
       res = @clnt.post_content(url, {:galaxy=>galaxy, :system=>system})
 
       galaxytable = Nokogiri::HTML(res).css('#galaxytable')
+
+      planets = galaxytable.css('tbody tr').size
+      puts planets
+      if planets == 0 then
+        break
+      end
 
       galaxytable.css('tbody tr').map do |row|
         data = planet_info row
